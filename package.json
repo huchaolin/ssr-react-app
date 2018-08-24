@@ -5,11 +5,17 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --config build/webpack.config.js"
+    "build_server": "webpack --config build/webpack.config.server.js",
+    "build_client": "webpack --config build/webpack.config.client.js",
+    "dev_client": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.config.client.js",
+    "clear": "rimraf dist",
+    "build": "npm run clear && npm run build_client && npm run build_server",
+    "server": "node server/server.js"
   },
   "author": "hcl",
   "license": "ISC",
   "dependencies": {
+    "express": "^4.16.3",
     "react": "^16.4.2",
     "react-dom": "^16.4.2",
     "webpack": "^4.17.1",
@@ -21,6 +27,8 @@
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
     "html-loader": "^0.5.5",
-    "html-webpack-plugin": "^3.2.0"
+    "html-webpack-plugin": "^3.2.0",
+    "rimraf": "^2.6.2",
+    "webpack-dev-server": "^3.1.5"
   }
 }
