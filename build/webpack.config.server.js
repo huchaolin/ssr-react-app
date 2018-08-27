@@ -1,5 +1,6 @@
 const path = require('path');
-module.exports = {
+const isDev = process.env.NODE_ENV == 'development';
+const config  = {
     target: 'node',//服务端
     entry: {
         app: path.join(__dirname, '../client/server-entry.js')
@@ -21,4 +22,8 @@ module.exports = {
             }
         ],
     }
-}
+};
+if(isDev) {
+    config.mode = 'development';
+};
+module.exports = config;
