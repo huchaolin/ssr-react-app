@@ -5,7 +5,7 @@ import { hot } from 'react-hot-loader';
     render() {
         return (
             <div> 
-                this is react-app 1
+                this is react-app 1232s2dd
             </div>
         )
     }

@@ -8,7 +8,7 @@ const config  = {
     output: {
         filename: 'server-entry.js',
         path: path.join(__dirname, '../dist'),
-        publicPath: 'public',
+        publicPath: '/public/',
         libraryTarget: 'commonjs2'
     },
     module: {
