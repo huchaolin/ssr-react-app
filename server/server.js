@@ -1,10 +1,14 @@
 const express = require('express');
 const ReactSSR = require('react-dom/server');
 const path = require('path');
+const favicon = require('serve-favicon');
 
 const app = express();
 
 const isDev = process.env.NODE_ENV == 'development';
+
+//指定标签栏图标
+app.use(favicon(path.join(__dirname, '../favicon.ico')))
 
 if (!isDev) {
     //正式环境的服务端渲染

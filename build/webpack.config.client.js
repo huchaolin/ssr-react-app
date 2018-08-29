@@ -1,33 +1,18 @@
 const path = require('path');
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 
+const webpackMerge = require("webpack-merge");
+const webpackBaseConfig = require("./webpack.base");
 const isDev = process.env.NODE_ENV == 'development';
-const config = {
+const config = webpackMerge(webpackBaseConfig, {
     entry: {
         app: path.join(__dirname, '../client/app.js')
     },
     output: {
         filename: '[name].[hash].js',
-        path: path.join(__dirname, '../dist'),
-        publicPath: '/public/',
     },
     module: {
         rules: [
-            {
-                enforce: 'pre',
-                test: /\.(js|jsx)$/,
-                exclude: /node_modules/,
-                use: {
-                    loader: "eslint-loader"
-                  }
-            },
-            {
-                test: /\.(js|jsx)$/,
-                exclude: /node_modules/,
-                use: {
-                    loader: "babel-loader"
-                  }
-            },
             {
                 test: /\.html$/,
                 use: [
@@ -37,14 +22,14 @@ const config = {
                   }
                 ]
             }
-        ],
+        ]
     },
     plugins: [
         new HtmlWebPackPlugin({
             template: path.join(__dirname, '../client/template.html')
         })
     ]
-};
+});
 if(isDev) {
     config.mode = 'development';
     //localhost:8888/文件名 可以访问到dist目录下的静态资源
@@ -61,6 +46,6 @@ if(isDev) {
             index: '/public/index.html'
         }
     };
-   
+
 };
 module.exports = config;
