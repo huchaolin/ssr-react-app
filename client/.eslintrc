@@ -13,6 +13,10 @@
     "rules": {
         "semi": [0],
         "no-extra-semi": [0],
-        "react/jsx-filename-extension": [0]
+        "react/jsx-filename-extension": [0],
+        "react/jsx-indent": [0],
+        "react/destructuring-assignment": [0],
+        "no-useless-constructor": [0],
+        "react/no-typos": [0]
     }
 }
