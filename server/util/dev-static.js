@@ -5,6 +5,7 @@ const MemoryFs = require('memory-fs');
 const serverConfig = require('../../build/webpack.config.server');
 const ReactSSR = require('react-dom/server');
 const proxy = require('http-proxy-middleware');
+const bootstrapper  = require('react-async-bootstrapper');
 //由于开发时template没有写在硬盘上， 故须另外的方法读取
 const getTemplate = () => {
     return new Promise( (resolve, reject) => {
@@ -23,7 +24,7 @@ const mfs = new MemoryFs;
 const serverCompiler = webpack(serverConfig);
 //通过mfs读取文件
 serverCompiler.outputFileSystem = mfs;
-let serverBundle;
+let serverBundle, createStoreMap;
 serverCompiler.watch({}, (err, stats) => {
     if(err) throw err;
     stats = stats.toJson();
@@ -41,16 +42,30 @@ serverCompiler.watch({}, (err, stats) => {
     //使用此方法必须指定名字，否则报错
     m._compile(bundle, 'server-entry.js');
     serverBundle = m.exports.default;
+    //stores部分
+    createStoreMap = m.exports.createStoreMap;
 });
 
-module.exports = function(app) {
+module.exports = function (app) {
     app.use('/public', proxy({
         target: 'http://localhost:8888'
     }));
-    app.get('*', function(req, res) {
+    app.get('*', function (req, res) {
         getTemplate().then(template => {
-          const content = ReactSSR.renderToString(serverBundle);
-          res.send(template.replace('<!--app-->', content));
+            const routerContext = {};
+            const stores = createStoreMap();
+            const app = serverBundle(stores, routerContext, req.url);
+            bootstrapper(app).then(() => {
+                // 服务端渲染时路由跳转
+                if (routerContext.url) {
+                    res.status(302).setHeader('Location', routerContext.url);
+                    res.end();
+                    return
+                };
+                const content = ReactSSR.renderToString(app);
+                res.send(template.replace('<!--app-->', content));
+            })
+            .catch(err => console.log('Eek, error!', err));
         })
     })
 }

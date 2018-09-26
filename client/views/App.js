@@ -1,6 +1,6 @@
 import React, { Component } from 'react'; //    eslint-disable-line
 import { hot } from 'react-hot-loader';//   eslint-disable-line 
-import { Route } from 'react-router-dom';
+import { Route, Redirect } from 'react-router-dom';
 import TopicList from './topic-list/index';
 import TopicDetails from './topic-details/index';
 
@@ -15,7 +15,9 @@ import TopicDetails from './topic-details/index';
 // };
 const App = () => (
 <div>
-    <Route path="/" component={TopicList} exact />
+    <span>首页</span>
+    <Route path="/" render={() => <Redirect to="/list" />} exact />
+    <Route path="/list" component={TopicList} exact />
     <Route path="/topic-details" component={TopicDetails} />
 </div>
 );
