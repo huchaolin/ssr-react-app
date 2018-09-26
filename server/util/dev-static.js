@@ -63,7 +63,8 @@ module.exports = function (app) {
                     return
                 };
                 const content = ReactSSR.renderToString(app);
-                res.send(template.replace('<!--app-->', content));
+                const ssrHtml = template.replace('<app></app>', content);
+                res.send(ssrHtml);
             })
             .catch(err => console.log('Eek, error!', err));
         })
