@@ -3,13 +3,15 @@ const webpack = require('webpack');
 const path = require('path');
 const MemoryFs = require('memory-fs');
 const serverConfig = require('../../build/webpack.config.server');
+const ejs = require('ejs');
+const serializeJs = require('serialize-javascript');
 const ReactSSR = require('react-dom/server');
 const proxy = require('http-proxy-middleware');
 const bootstrapper  = require('react-async-bootstrapper');
 //由于开发时template没有写在硬盘上， 故须另外的方法读取
 const getTemplate = () => {
     return new Promise( (resolve, reject) => {
-        axios.get('http://localhost:8888/public/index.html')
+        axios.get('http://localhost:8888/public/server.ejs')
         .then(res => {
             resolve(res.data)
         }).catch(reject);
@@ -44,8 +46,16 @@ serverCompiler.watch({}, (err, stats) => {
     serverBundle = m.exports.default;
     //stores部分
     createStoreMap = m.exports.createStoreMap;
+    console.log('createStoreMap', createStoreMap)
 });
 
+// 获取json格式的服务端渲染后的state
+const getStoreState = (stores) => {
+    return Object.keys(stores).reduce((result, storeName) => {
+        result[storeName] = stores[storeName].toJson();
+        return result
+    }, {})
+}
 module.exports = function (app) {
     app.use('/public', proxy({
         target: 'http://localhost:8888'
@@ -62,9 +72,18 @@ module.exports = function (app) {
                     res.end();
                     return
                 };
+                //获得服务端渲染后的store的初始状态
+                const initialState = serializeJs(getStoreState(stores));
+                console.log('initialState'. initialState)
                 const content = ReactSSR.renderToString(app);
-                const ssrHtml = template.replace('<app></app>', content);
-                res.send(ssrHtml);
+
+                const html = ejs.render(template, {
+                    content,
+                    initialState,
+                })
+
+                // const ssrHtml = template.replace('<app></app>', content);
+                res.send(html);
             })
             .catch(err => console.log('Eek, error!', err));
         })

@@ -3,9 +3,14 @@ import {
 } from 'mobx';
 
 export default class AppState {
-  @observable count = 0;
+  constructor({ count, name } = { count: 0, name: 'Jack' }) {
+    this.count = count;
+    this.name = name;
+  }
 
-  @observable name = 'Jack';
+  @observable count;
+
+  @observable name;
 
   @computed get msg() {
     return `${this.name} say count is ${this.count}`
@@ -13,6 +18,14 @@ export default class AppState {
   ;
   @action add() {
     this.count += 1
+  }
+
+  // 服务端完成渲染时以json格式拿到数据
+  toJson() {
+    return {
+      count: this.count,
+      name: this.name,
+    }
   }
 }
 

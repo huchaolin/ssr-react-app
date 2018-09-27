@@ -21,12 +21,30 @@ const config = webpackMerge(webpackBaseConfig, {
                     options: { minimize: true }
                   }
                 ]
+            },
+            {
+                test: /\.ejs$/,
+                use: [
+                    {
+                        loader: "ejs-compiled-loader",
+                        options: {
+                            'htmlmin': true, // or enable here  
+                            'htmlminOptions': {
+                                removeComments: true
+                            }
+                        }
+                    }
+                ]
             }
         ]
     },
     plugins: [
         new HtmlWebPackPlugin({
             template: path.join(__dirname, '../client/template.html')
+        }), 
+        new HtmlWebPackPlugin({
+            template:  path.join(__dirname, '../client/server.template.ejs'),
+            filename: 'server.ejs'
         })
     ]
 });
