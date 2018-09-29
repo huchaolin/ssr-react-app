@@ -9,9 +9,7 @@ export default class TopicDetails extends Component {
 
   render() {
     return (
-            <div>
-            {this.state.describe}
-            </div>
+            <div>{this.state.describe}</div>
     )
   }
 }

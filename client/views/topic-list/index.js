@@ -1,6 +1,7 @@
 import React, { Component } from 'react'; //eslint-disable-line
 import { observer, inject } from 'mobx-react';
 import PropTypes from 'prop-types'; // 对于通过props传入的数据进行数据类型校验
+import Helmet from 'react-helmet';// 解决个页面title等seo标签
 import AppState from '../../store/app-state';
 
 @inject('appState')
@@ -27,7 +28,11 @@ class TopicList extends Component {
   render() {
     return (
       <div>
-        {this.props.appState.msg}
+        <Helmet>
+          <title>话题列表页title</title>
+          <meta name="description" content="话题列表页 meta标签" />
+        </Helmet>
+      <span>{this.props.appState.msg}</span>
       </div>
     )
   }

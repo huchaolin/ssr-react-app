@@ -8,6 +8,7 @@ const config  =webpackMerge(webpackBaseConfig, {
     entry: {
         app: path.join(__dirname, '../client/server-entry.js')
     },
+    externals: Object.keys(require('../package.json').dependencies),// 服务端渲染引用类库不打包到build文件夹中
     output: {
         filename: 'server-entry.js',
         libraryTarget: 'commonjs2'
