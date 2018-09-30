@@ -12,7 +12,8 @@
     "clear": "rimraf dist",
     "build": "npm run clear && npm run build_client && npm run build_server",
     "lint": "eslint --fix --ext .js --ext .jsx client/",
-    "precommit": "npm run lint"
+    "precommit": "npm run lint",
+    "start": "cross-env NODE_ENV=production node server/server.js"
   },
   "author": "hcl",
   "license": "ISC",

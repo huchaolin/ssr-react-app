@@ -36,15 +36,6 @@ const baseUrl = 'http://cnodejs.org/api/v1';
 // });
 
 
-
-
-
-
-
-
-
-
-
 router.post(`/login`, async (req, res, next) => {
     try {
         const res1 = await axios.post(`${baseUrl}/accesstoken`, {
