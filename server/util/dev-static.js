@@ -38,7 +38,7 @@ const mfs = new MemoryFs;
 const serverCompiler = webpack(serverConfig);
 //通过mfs读取文件
 serverCompiler.outputFileSystem = mfs;
-let serverBundle, createStoreMap;
+let serverBundle;
 serverCompiler.watch({}, (err, stats) => {
     if(err) throw err;
     stats = stats.toJson();
@@ -61,6 +61,9 @@ module.exports = function (app) {
         target: 'http://localhost:8888'
     }));
     app.get('*', function (req, res, next) {
+        if(!serverBundle) {
+            return res.send('waiting for compile, refresh later')
+        }
         getTemplate().then(template => {
             serverRender(serverBundle, template, req, res )
             .catch(next);
