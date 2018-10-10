@@ -12,7 +12,15 @@ const config  =webpackMerge(webpackBaseConfig, {
     output: {
         filename: 'server-entry.js',
         libraryTarget: 'commonjs2'
-    }
+    },
+    module: {
+        rules: [
+            {
+                test: /\.css$/,
+                use: [ 'css-loader' ]
+            },
+        ]
+    },
 });
 if(isDev) {
     config.mode = 'development';

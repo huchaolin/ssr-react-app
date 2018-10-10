@@ -35,7 +35,11 @@ const config = webpackMerge(webpackBaseConfig, {
                         }
                     }
                 ]
-            }
+            },
+            {
+                test: /\.css$/,
+                use: [ 'style-loader', 'css-loader' ]
+            },
         ]
     },
     plugins: [
@@ -50,11 +54,12 @@ const config = webpackMerge(webpackBaseConfig, {
 });
 if(isDev) {
     config.mode = 'development';
+    config.devtool = '#cheap-module-eval-source-map';// 方便快速定位错误到源代码
     //localhost:8888/文件名 可以访问到dist目录下的静态资源
     config.devServer = {
         host: '0.0.0.0',// 表示可以用127.0.0.1， 也可以用localhost ，也可用本机IP ，避免局域网内开发时其他人连接本机失败
         port: '8888',
-        contentBase: path.join(__dirname, '../dist'), //webpack dev server把编译的内容放在内存，它指定了服务器资源的根目录，如果不写入contentBase的值，那么contentBase默认是项目的目录。
+        // contentBase: path.join(__dirname, '../dist'), //webpack dev server把编译的内容放在内存，它指定了服务器资源的根目录，如果不写入contentBase的值，那么contentBase默认是项目的目录。
         // hot: true,
         overlay: {
             errors: true

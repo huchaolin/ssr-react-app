@@ -19,6 +19,10 @@
         "no-useless-constructor": [0],
         "react/no-typos": [0],
         "no-console": [0],
-        "react/require-default-props": [0]
+        "react/require-default-props": [0],
+        "react/prefer-stateless-function": [0],
+        "no-unused-vars": [0],
+        "indent": [0],
+        "max-len": [0]
     }
 }
