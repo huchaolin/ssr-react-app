@@ -19,6 +19,8 @@ module.exports = (serverBundle, template, req, res) => {
         const createApp = serverBundle.default;
         const routerContext = {};
         const stores = createStoreMap();
+        console.log('stores22222', stores)
+
         const app = createApp(stores, routerContext, req.url);
         bootstrapper(app).then(() => {
             // 服务端渲染时路由跳转

@@ -1,5 +1,5 @@
 const path = require('path');
-
+const webpack = require('webpack');
 const webpackMerge = require("webpack-merge");
 const webpackBaseConfig = require("./webpack.base");
 const isDev = process.env.NODE_ENV == 'development';
@@ -21,6 +21,11 @@ const config  =webpackMerge(webpackBaseConfig, {
             },
         ]
     },
+    plugins: [
+        new webpack.DefinePlugin({
+            'process.env.API_BASE': '"http://127.0.0.1:2222"', // 设置服务端渲染时的请求baseapi
+        })
+    ]
 });
 if(isDev) {
     config.mode = 'development';

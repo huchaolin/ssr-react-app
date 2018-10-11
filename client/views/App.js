@@ -2,8 +2,8 @@ import React, { Component } from 'react'; //    eslint-disable-line
 import { hot } from 'react-hot-loader';//   eslint-disable-line 
 import { Route, Redirect } from 'react-router-dom';
 import { Layout } from 'antd';
-import TopicList from './topic-list/index';
-import TopicDetails from './topic-details/index';
+import TopicList from './topic-list';
+import TopicDetails from './topic-details';
 import TopBar from './component/TopBar';
 
 const {
