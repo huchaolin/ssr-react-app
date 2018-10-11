@@ -43,8 +43,6 @@ class TopicList extends Component {
   render() {
     const { topicStore } = this.props;
     const { topics, syncing } = topicStore;
-    console.log('刷新')
-    console.log('topics', topics)
     if (topics.length === 0) {
       return <div style={{ textAlign: 'center', padding: '1rem 0' }}>{syncing ? <Spin /> : null}</div>
     };
