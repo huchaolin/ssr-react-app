@@ -30,17 +30,21 @@ class TopicStore {
         this.topics = topics.map(topic => createTopic(topic));
     };
 
-    @action fetchTopics() {
+    @action fetchTopics(tab = 'all', page = 1) {
+        console.log('page server', page)
         this.syncing = true;
+        this.topics = [];
+        const params = { mdrender: false, page };
+        if (!!tab && tab !== 'all') {
+            params.tab = tab;
+        };
         return new Promise((resolve, reject) => {
-            get('/topics', {
-                mdrender: false,
-            }).then((res) => {
+            get('/topics', params).then((res) => {
                 if (res.success) {
                     // 防止多次变化导致的重复渲染
                     let topicsArr = [];
                     topicsArr = res.data.map(topic => createTopic(topic));
-                    this.topics = this.topics.concat(topicsArr);
+                    this.topics = topicsArr;
                     resolve();
                 } else {
                     reject();

@@ -3,10 +3,10 @@ import axios from 'axios';
 const baseUrl = process.env.API_BASE || ''
 
 const parseUrl = (url, params) => {
-    const paramsStr = Object.keys(params).map(key => `${key} = ${params[key]}`).join('&');
+    const paramsStr = Object.keys(params).map(key => `${key}=${params[key]}`).join('&');
+    console.log(`${baseUrl}/api${url}?${paramsStr}`)
     return `${baseUrl}/api${url}?${paramsStr}`
 }
-
 export const get = (url, params) => new Promise((resolve, reject) => {
         axios.get(parseUrl(url, params))
         .then((res) => {

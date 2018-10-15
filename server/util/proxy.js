@@ -58,8 +58,8 @@ module.exports = async (req, res, next) => {
     }); //get请求需要传入accessToken的情况
     if (query.needAccessToken) delete query.needAccessToken;
     try {
-        const res1 = await axios(`${baseUrl}${path}`, {
-            method: req.method,
+        const res1 = await axios.get(`${baseUrl}${path}`, {
+            // method: req.method,
             params: query,
             data: queryString.stringify(
                 Object.assign({}, req.body, {

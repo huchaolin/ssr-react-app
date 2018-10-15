@@ -1,6 +1,5 @@
 const path = require('path');
 const HtmlWebPackPlugin = require("html-webpack-plugin");
-
 const webpackMerge = require("webpack-merge");
 const webpackBaseConfig = require("./webpack.base");
 const isDev = process.env.NODE_ENV == 'development';
@@ -67,6 +66,9 @@ if(isDev) {
         publicPath: '/public/',//最后一个斜杠添加保证路径正确
         historyApiFallback: {
             index: '/public/index.html'
+        },
+        proxy: {
+            '/api': 'http://localhost:2222'
         }
     };
 
