@@ -25,13 +25,19 @@ class TopicStore {
 
     @observable syncing;
 
-    constructor({ syncing, topics } = { syncing: false, topics: [] }) {
+    @observable topicDetails;
+
+    // constructor({ syncing, topics, topicDetails } = { syncing: false, topics: [], topicDetails: [] }) {
+    //     this.syncing = syncing;
+    //     this.topics = topics.map(topic => createTopic(topic));
+    // };
+     constructor({ syncing = false, topics = [], topicDetails = {} } = {}) {
         this.syncing = syncing;
+        this.topicDetails = topicDetails;
         this.topics = topics.map(topic => createTopic(topic));
     };
 
     @action fetchTopics(tab = 'all', page = 1) {
-        console.log('page server', page)
         this.syncing = true;
         this.topics = [];
         const params = { mdrender: false, page };
@@ -54,6 +60,29 @@ class TopicStore {
                     reject(err);
                     this.syncing = false;
             })
+        })
+    }
+
+    @action fetchTopicDetail(id) {
+        return new Promise((resolve, reject) => {
+            if (this.topicDetails[id]) {
+                resolve(this.topicDetails[id]);
+            } else {
+                this.syncing = true;
+                const params = { mdrender: false };
+                get(`/topic/${id}`, params).then((res) => {
+                    if (res.success) {
+                        this.topicDetails[res.data.id] = res.data;
+                        resolve(res.data);
+                    } else {
+                        reject();
+                    };
+                    this.syncing = false;
+                }).catch((err) => {
+                        reject(err);
+                        this.syncing = false;
+                })
+            }
         })
     }
 

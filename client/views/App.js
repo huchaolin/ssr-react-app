@@ -20,7 +20,7 @@ class App extends Component {
             <Content>
                 <Route path="/" render={() => <Redirect to="/list" />} exact />
                 <Route path="/list" component={TopicList} exact />
-                <Route path="/topic-details" component={TopicDetails} />
+                <Route path="/topic-details/:id" component={TopicDetails} />
             </Content>
             <Footer>Footer</Footer>
          </Layout>

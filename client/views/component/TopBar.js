@@ -5,7 +5,11 @@ class TopBar extends Component {
     render() {
         return (
             <div style={{
-                width: '100%', height: '100%', overflow: 'hidden', color: 'white',
+                maxWidth: '89rem',
+                height: '100%',
+                overflow: 'hidden',
+                color: 'white',
+                margin: '0 auto',
             }}
             >
                 <div key="homelogo" style={{ float: 'left', height: '100%', fontSize: '2rem' }}>

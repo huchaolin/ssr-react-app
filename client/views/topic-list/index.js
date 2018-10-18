@@ -1,12 +1,12 @@
 import React, { Component } from 'react'; //eslint-disable-line
 import { observer, inject } from 'mobx-react';
+import { Link } from 'react-router-dom';
 import {
  Tabs, Button, List, Avatar, Tag, Spin, Pagination,
 } from 'antd';
 import PropTypes from 'prop-types'; // 对于通过props传入的数据进行数据类型校验
 import Helmet from 'react-helmet';// 解决个页面title等seo标签
 import moment from 'moment';
-import { get } from '../../util/wrapAxios';
 
 moment.locale('zh-cn');
 const { TabPane } = Tabs;
@@ -88,13 +88,20 @@ class TopicList extends Component {
     const { topics, syncing } = topicStore;
     const activeTab = this.getQueryTabName();
     return (
-      <div>
+      <div style={{
+        margin: '1rem auto',
+        maxWidth: '86rem',
+      }}
+      >
         <Helmet>
           <title>话题列表页title</title>
           <meta name="description" content="话题列表页 meta标签" />
         </Helmet>
         <div style={{
-          margin: '1rem', backgroundColor: 'white', borderRadius: '5px', padding: '0 1rem',
+          margin: '1rem',
+          backgroundColor: 'white',
+          borderRadius: '5px',
+          padding: '0 1rem',
         }}
         >
           <Tabs
@@ -134,7 +141,7 @@ class TopicList extends Component {
                                     )
                                 }
 
-                                <a href="https://ant.design">{topicsItem.title}</a>
+                                <Link to={`/topic-details/${topicsItem.id}`}>{topicsItem.title}</Link>
                               </div>
                             )}
                             description={(

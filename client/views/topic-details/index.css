@@ -1,0 +1,19 @@
+.topic-detail-subtitle::before {
+    content: "";
+    display: block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: #838383;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+}
+.topic-detail-subtitle {
+    padding: 0 1rem 0 0.7rem;
+    font-size: 14px;
+    color: #838383;
+    position: relative;
+    display: inline-block;
+}
