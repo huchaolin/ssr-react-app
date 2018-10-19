@@ -43,6 +43,7 @@ class TopicList extends Component {
   componentDidMount() {
     const tab = this.getQueryTabName();
     this.getTabList(tab);
+    console.log('this.props', this.props)
   }
 
   getQueryTabName() {

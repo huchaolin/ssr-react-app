@@ -1,7 +1,7 @@
 import React, { Component } from 'react'; //eslint-disable-line
 import { observer, inject } from 'mobx-react';
 import {
- Tabs, Button, List, Avatar, Tag, Spin, Pagination, Card,
+ Tabs, Button, List, Avatar, Tag, Spin, Card,
 } from 'antd';
 import PropTypes from 'prop-types'; // 对于通过props传入的数据进行数据类型校验
 import Helmet from 'react-helmet';// 解决个页面title等seo标签

@@ -14,7 +14,7 @@ const mobxState = {
     appState: new AppState(initialState.appState),
     topicStore: new TopicStore(initialState.topicStore),
 }
-
+console.log('appState', mobxState)
 const WrapApp = () => (
     <Provider {...mobxState}>
         <BrowserRouter>

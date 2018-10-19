@@ -1,18 +1,7 @@
 import React, { Component } from 'react';
 import { Button } from 'antd';
-import { Link } from 'react-router-dom';
 
-class TopBar extends Component {
-    constructor(props) {
-        super(props);
-        this.rediectToLogin = this.rediectToLogin.bind(this);
-    }
-
-    rediectToLogin() {
-        console.log(this.props)
-        this.props.history.push('/user/login');
-    }
-
+class Login extends Component {
     render() {
         return (
             <div style={{
@@ -27,14 +16,13 @@ class TopBar extends Component {
                     Hnode
                 </div>
                 <div key="signin" style={{ float: 'right', height: '100%', marginLeft: '1rem' }}>
-                   <Button type="primary" ghost onClick={this.rediectToLogin}>登陆</Button>
+                   <Button type="primary" ghost>登陆</Button>
                 </div>
                 <div key="topic" style={{ float: 'right', height: '100%' }}>
                     <Button ghost>发表话题</Button>
-                    <Link to="/user/login">发表话题</Link>
                 </div>
             </div>
     )
   }
 }
-export default TopBar;
+export default Login;
