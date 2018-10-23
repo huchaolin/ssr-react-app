@@ -18,22 +18,15 @@ export const topicSchema = {
     replies: [],
 }
 
-export const topicSchema1 = {
+export const replySchema = {
     id: '',
-    author_id: '',
-    tab: '',
-    content: '',
-    title: '',
-    last_reply_at: '',
-    good: false,
-    top: false,
-    reply_count: 0,
-    visit_count: 0,
-    create_at: '',
-    is_collect: '',
     author: {
         loginname: '',
         avatar_url: '',
     },
-    replies: [],
+    content: '',
+    ups: [],
+    create_at: '',
+    reply_id: null,
+    is_uped: false,
 }

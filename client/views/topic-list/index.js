@@ -95,7 +95,7 @@ class TopicList extends Component {
       }}
       >
         <Helmet>
-          <title>话题列表页title</title>
+          <title>话题列表页</title>
           <meta name="description" content="话题列表页 meta标签" />
         </Helmet>
         <div style={{

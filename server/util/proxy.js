@@ -1,6 +1,6 @@
 const axios = require('axios');
 const queryString = require('query-string')
-const baseUrl = 'http://cnodejs.org/api/v1';
+const baseUrl = 'https://cnodejs.org/api/v1';
 
 // module.exports = (req, res, next) => {
 //     const path = req.path;
@@ -47,7 +47,7 @@ module.exports = async (req, res, next) => {
     const path = req.path;
     const user = req.session.user || {};
     const needAccessToken = req.query.needAccessToken;
-    if (needAccessToken && !user.needAccessToken) {
+    if (needAccessToken && !user.accessToken) {
         res.status(401).send({
             success: false,
             msg: 'need login'
@@ -58,12 +58,12 @@ module.exports = async (req, res, next) => {
     }); //get请求需要传入accessToken的情况
     if (query.needAccessToken) delete query.needAccessToken;
     try {
-        const res1 = await axios.get(`${baseUrl}${path}`, {
-            // method: req.method,
+        const res1 = await axios(`${baseUrl}${path}`, {
+            method: req.method,
             params: query,
             data: queryString.stringify(
                 Object.assign({}, req.body, {
-                    accesstoken:(needAccessToken && req.method == 'POST') ? user.accessToken : ''
+                    accesstoken:(needAccessToken && req.method.toUpperCase( ) == 'POST') ? user.accessToken : ''
                 })
             ),
             headers: {

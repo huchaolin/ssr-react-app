@@ -16,7 +16,7 @@ app.use(session({
     name: 'tid',//cookie的id
     resave: false,
     saveUninitialized: false,
-    cookie: { maxAge: 60000 }
+    cookie: { maxAge: 600000 }
 }));
 
 app.use('/api/user', require('./util/handle-login'));

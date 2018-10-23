@@ -6,6 +6,7 @@ import TopicList from './topic-list';
 import TopicDetails from './topic-details';
 import TopBar from './component/TopBar';
 import User from './user/index';
+import Login from './login/index';
 
 const {
   Header, Footer, Sider, Content,
@@ -23,6 +24,7 @@ class App extends Component {
                 <Route path="/list" component={TopicList} exact />
                 <Route path="/topic-details/:id" component={TopicDetails} />
                 <Route path="/user" component={User} />
+                <Route path="/login" component={Login} />
             </Content>
             <Footer>Footer</Footer>
          </Layout>

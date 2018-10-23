@@ -3,9 +3,13 @@ import axios from 'axios';
 const baseUrl = process.env.API_BASE || ''
 
 const parseUrl = (url, params) => {
-    const paramsStr = Object.keys(params).map(key => `${key}=${params[key]}`).join('&');
-    console.log(`${baseUrl}/api${url}?${paramsStr}`)
-    return `${baseUrl}/api${url}?${paramsStr}`
+    let parsedUrl = `${baseUrl}/api${url}`;
+    if (!!params && (Object.keys(params).length !== 0)) {
+        const paramsStr = Object.keys(params).map(key => `${key}=${params[key]}`).join('&');
+        parsedUrl = `${baseUrl}/api${url}?${paramsStr}`;
+    };
+    console.log(`${parsedUrl}`)
+    return parsedUrl;
 }
 export const get = (url, params) => new Promise((resolve, reject) => {
         axios.get(parseUrl(url, params))

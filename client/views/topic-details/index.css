@@ -17,3 +17,14 @@
     position: relative;
     display: inline-block;
 }
+.CodeMirror {
+    border: none;
+}
+.collect-btn {
+    position: relative;
+    width: 2rem;
+    height: 2rem;
+}
+.collect-btn:hover {
+    cursor: pointer;
+}
