@@ -36,13 +36,13 @@ class User extends Component {
         const { recentReplies, recentTopics, syncing: syncing1 } = this.props.appState.user.detail;
         const { list: collections, syncing: syncing2 } = this.props.appState.user.collections;
         const listArr = [{
-            key: 'recentReplies',
-            data: recentReplies,
+            key: 'recentTopics',
+            data: recentTopics,
             title: '最近发布的话题',
             syncing: syncing1,
         }, {
-            key: 'recentTopics',
-            data: recentTopics,
+            key: 'recentReplies',
+            data: recentReplies,
             title: '新的回复',
             syncing: syncing1,
         }, {

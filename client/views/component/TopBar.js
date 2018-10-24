@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { Button, Avatar, Icon } from 'antd';
+import {
+ Button, Avatar, Icon, message,
+} from 'antd';
 import { Link, withRouter } from 'react-router-dom';
 import { observer, inject } from 'mobx-react';
 import PropTypes from 'prop-types';
@@ -15,12 +17,22 @@ class TopBar extends Component {
     constructor(props) {
         super(props);
         this.redirectToLogin = this.redirectToLogin.bind(this);
+        this.redirectToCreateTopic = this.redirectToCreateTopic.bind(this);
     }
 
     redirectToLogin() {
         const { pathname } = this.props.history.location
         this.props.appState.setPathBeforeLogin(pathname);
         this.props.history.push('/login');
+    }
+
+    redirectToCreateTopic() {
+        const { isLogin } = this.props.appState.user;
+        if (isLogin) {
+            this.props.history.push('/create-topic');
+        } else {
+            message.info('请先登陆~~');
+        }
     }
 
     render() {
@@ -68,7 +80,7 @@ class TopBar extends Component {
                     }
                 </div>
                 <div key="topic" style={{ float: 'right', height: '100%' }}>
-                    <Button ghost>发表话题</Button>
+                    <Button onClick={this.redirectToCreateTopic} ghost>发表话题</Button>
                 </div>
             </div>
     )

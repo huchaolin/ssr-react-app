@@ -36,10 +36,6 @@ class TopicStore {
 
     @observable topicDetails;
 
-    // constructor({ syncing, topics, topicDetails } = { syncing: false, topics: [], topicDetails: [] }) {
-    //     this.syncing = syncing;
-    //     this.topics = topics.map(topic => createTopic(topic));
-    // };
      constructor({
  syncing = false, topics = [], replys = [], topicDetails = {},
 } = {}) {
@@ -131,6 +127,21 @@ class TopicStore {
                 .then((res) => {
                     if (res.success) {
                         this.topicDetails[topic_id].is_collect = isCollect;
+                        resolve(res);
+                    } else {
+                        reject(res);
+                    };
+                }).catch((err) => {
+                    reject(err);
+                })
+        })
+    }
+
+    @action createTopic(tab, title, content) {
+        return new Promise((resolve, reject) => {
+            post('/topics', { needAccessToken: true }, { title, tab, content })
+                .then((res) => {
+                    if (res.success) {
                         resolve(res);
                     } else {
                         reject(res);

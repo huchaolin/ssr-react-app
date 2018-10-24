@@ -7,9 +7,11 @@ import TopicDetails from './topic-details';
 import TopBar from './component/TopBar';
 import User from './user/index';
 import Login from './login/index';
+import createTopic from './create-topic/index';
+import './App.css';
 
 const {
-  Header, Footer, Sider, Content,
+  Header, Footer, Content,
 } = Layout;
 
 class App extends Component {
@@ -25,6 +27,7 @@ class App extends Component {
                 <Route path="/topic-details/:id" component={TopicDetails} />
                 <Route path="/user" component={User} />
                 <Route path="/login" component={Login} />
+                <Route path="/create-topic" component={createTopic} />
             </Content>
             <Footer>Footer</Footer>
          </Layout>

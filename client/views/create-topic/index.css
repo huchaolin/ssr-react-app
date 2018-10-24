@@ -1,0 +1,8 @@
+.create-topic .CodeMirror, .create-topic .CodeMirror-scroll {
+    min-height: 650px
+}
+
+.create-topic {
+    margin: 0 1rem;
+    position: relative;
+}

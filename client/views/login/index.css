@@ -1,0 +1,49 @@
+.show-later {
+    animation:fadeIn 1s infinite;
+    animation-direction: normal;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    /* Safari and Chrome */
+   -webkit-animation: fadeIn 1s infinite;
+   -webkit-animation-fill-mode: forwards;
+   -webkit-animation-direction: normal;
+   -webkit-animation-iteration-count: 1;
+}
+
+
+
+@-webkit-keyframes fadeIn {
+    0% {
+        opacity:0;
+     }
+    25% {
+        opacity:0;
+    }
+    50% {
+        opacity: 0.5;    
+    }
+    75% {
+        opacity: 0.75;
+    }
+    100% {
+        opacity: 1;
+    }
+ }
+
+ @keyframes fadeIn {
+    0% {
+        opacity:0;
+     }
+    25% {
+        opacity:0;
+    }
+    50% {
+        opacity: 0.5;    
+    }
+    75% {
+        opacity: 0.75;
+    }
+    100% {
+        opacity: 1;
+    }
+ }

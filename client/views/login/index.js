@@ -1,13 +1,14 @@
 import React, { Component } from 'react'; //eslint-disable-line
 import { observer, inject } from 'mobx-react';
-import { Link, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import {
- Tabs, Button, List, Avatar, Input, Form, message,
+  Button, Input, Form, message, Row, Col,
 } from 'antd';
 import PropTypes from 'prop-types'; // 对于通过props传入的数据进行数据类型校验
 import Helmet from 'react-helmet';// 解决个页面title等seo标签
 import moment from 'moment';
 import loginBg from '../component/images/bg1.jpg';
+import './index.css';
 
 const FormItem = Form.Item;
 
@@ -96,40 +97,42 @@ class Login extends Component {
                     <div
                       style={{
                             position: 'absolute',
-                            top: '42%',
-                            left: '50%',
-                            transform: 'translate(-50%, -50%)',
-                            padding: '0  1rem',
-                            maxWidth: '30rem',
-                            minWidth: '23rem',
+                            width: '100%',
+                            height: '100%',
+                            left: '0',
+                            top: '0',
                         }}
                     >
-                        <Form onSubmit={this.handleSubmit}>
-                            <FormItem>
-                                {getFieldDecorator('token', {
-                                    rules: [{ required: true, message: 'accessToken不能为空' }],
-                                })(
-                                    <Input
-                                      style={{
-                                            marginBottom: '1rem',
-                                            textAlign: 'center',
-                                            width: '100%',
-                                        }}
-                                      placeholder="请输入Cnode accessToken"
-                                    />,
-                                )}
-                            </FormItem>
-                            <Button
-                              htmlType="submit"
-                              style={{
-                                    marginBottom: '1rem',
-                                    width: '100%',
-                                }}
-                              ghost
-                            >
-                                登陆
-                            </Button>
-                        </Form>
+                    <Row className="show-later" style={{ height: '90%', opacity: '0' }} type="flex" align="middle" justify="center">
+                        <Col xs={20} sm={12} md={8}>
+                            <Form onSubmit={this.handleSubmit}>
+                                <FormItem>
+                                    {getFieldDecorator('token', {
+                                        rules: [{ required: true, message: 'accessToken不能为空' }],
+                                    })(
+                                        <Input
+                                          style={{
+                                                marginBottom: '1rem',
+                                                textAlign: 'center',
+                                                width: '100%',
+                                            }}
+                                          placeholder="请输入Cnode accessToken"
+                                        />,
+                                    )}
+                                </FormItem>
+                                <Button
+                                  htmlType="submit"
+                                  style={{
+                                        marginBottom: '1rem',
+                                        width: '100%',
+                                    }}
+                                  ghost
+                                >
+                                    登陆
+                                </Button>
+                            </Form>
+                        </Col>
+                    </Row>
                     </div>
                 </div>
         </div>
