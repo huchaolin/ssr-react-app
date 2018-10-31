@@ -32,7 +32,6 @@ class TopicList extends Component {
     super(props);
     this.bootstrap = this.bootstrap.bind(this);
     this.handleTabChange = this.handleTabChange.bind(this);
-    this.getTabList = this.getTabList.bind(this);
     this.getQueryTabName = this.getQueryTabName.bind(this);
     this.pageChangeHandler = this.pageChangeHandler.bind(this);
     this.state = {
@@ -42,13 +41,11 @@ class TopicList extends Component {
 
   componentDidMount() {
     const tab = this.getQueryTabName();
-    this.getTabList(tab);
-    console.log('this.props', this.props)
+    const { currentPage: page } = this.state;
+    this.props.topicStore.fetchTopics(tab, page);
   }
 
   getQueryTabName() {
-    // const { location } = this.props;
-    // const { search } = location;
     const key = this.props.location.search.split('=')[1];
     if (topicBook[key]) {
       return key;
@@ -56,31 +53,27 @@ class TopicList extends Component {
     return 'all'
   }
 
-  getTabList(tab, page) {
+  handleTabChange(tab) {
+    this.props.history.push(`/list?tab=${tab}`)
+    const { currentPage: page } = this.state;
     this.props.topicStore.fetchTopics(tab, page);
   }
 
-  handleTabChange(tab) {
-    console.log(' this.props.history', this.props.history)
-    this.props.history.push(`/list?tab=${tab}`)
-    this.getTabList(tab);
-    console.log('this.props', this.props)
-  }
-
   pageChangeHandler(page) {
-    console.log('page', page)
-    this.getTabList(this.getQueryTabName(), page);
+    const tab = this.getQueryTabName();
+    this.props.topicStore.fetchTopics(tab, page);
     this.setState({
       currentPage: page,
     })
   }
 
-  // 调用完了该函数dev--static才会进行渲染的工作, 放在componentDidMount后面
+  // 服务端渲染时先调用这个钩子函数在进行数据返回
   bootstrap() {
-    // this.props.topicStore.fetchTopics();
-    setTimeout(() => {
-      this.a = 'a'
-      console.log('1111111111')
+    // const tab = this.getQueryTabName();
+    // return this.props.topicStore.fetchTopics(tab, this.state.currentPage);
+    // 网速快的环境可以考虑服务端渲染时将需要请求的数据先在此请求后再返回前端html
+    return new Promise((resolve, reject) => {
+      resolve();
     })
   }
 
@@ -110,13 +103,6 @@ class TopicList extends Component {
             onChange={this.handleTabChange}
             size="large"
             tabBarStyle={{ margin: '0 0 5px 0' }}
-            tabBarExtraContent={(
-                          <div
-                            style={{ height: '3.4rem', lineHeight: '3.4rem' }}
-                          >
-                          <Button>Extra Action</Button>
-                          </div>
-                          )}
             animated={false}
           >
             {topicTabs.map(tabData => (

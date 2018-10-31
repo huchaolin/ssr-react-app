@@ -7,6 +7,7 @@ export const topicSchema = {
     last_reply_at: '',
     good: false,
     top: false,
+    syncing: false,
     reply_count: 0,
     visit_count: 0,
     create_at: '',

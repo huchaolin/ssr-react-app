@@ -6,19 +6,16 @@ import App from './views/App';
 import stores from './store/store';
 
 const { AppState, TopicStore } = stores;
-
-console.log('stores111', stores)
 // 与服务端同步state
 const initialState =  window.__INITIAL__STATE__ || {} // eslint-disable-line
 const mobxState = {
     appState: new AppState(initialState.appState),
     topicStore: new TopicStore(initialState.topicStore),
 }
-console.log('appState', mobxState)
 const WrapApp = () => (
     <Provider {...mobxState}>
         <BrowserRouter>
             <App />
         </BrowserRouter>
     </Provider>);
-ReactDOM.render(<WrapApp />, document.getElementById('root'));
+ReactDOM.hydrate(<WrapApp />, document.getElementById('root'));

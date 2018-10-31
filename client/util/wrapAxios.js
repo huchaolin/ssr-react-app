@@ -8,7 +8,6 @@ const parseUrl = (url, params) => {
         const paramsStr = Object.keys(params).map(key => `${key}=${params[key]}`).join('&');
         parsedUrl = `${baseUrl}/api${url}?${paramsStr}`;
     };
-    console.log(`${parsedUrl}`)
     return parsedUrl;
 }
 export const get = (url, params) => new Promise((resolve, reject) => {

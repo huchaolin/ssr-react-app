@@ -19,8 +19,12 @@ module.exports = (serverBundle, template, req, res) => {
         const createApp = serverBundle.default;
         const routerContext = {};
         const stores = createStoreMap();
-        console.log('stores22222', stores)
-
+        // 判断服务端是否已保存用户信息
+        const user = req.session.user;
+        if (user) {
+            stores.appState.user.isLogin = true;
+            stores.appState.user.info = user;
+        }
         const app = createApp(stores, routerContext, req.url);
         bootstrapper(app).then(() => {
             // 服务端渲染时路由跳转
@@ -45,6 +49,7 @@ module.exports = (serverBundle, template, req, res) => {
                 link,
                 style,
             })
+            console.log('服务端渲染返回html')
             res.send(html);
             resolve();
         }).catch(reject);

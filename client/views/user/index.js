@@ -1,6 +1,6 @@
 import React, { Component } from 'react'; //eslint-disable-line
 import { observer, inject } from 'mobx-react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import {
 List, Avatar, Row, Col, Card, Spin,
 } from 'antd';
@@ -21,18 +21,17 @@ class User extends Component {
         super(props);
     }
 
-    componentWillMount() {
-        if (!this.props.appState.user.isLogin) {
-            this.props.history.push('/login');
-        }
-    }
-
     componentDidMount() {
         this.props.appState.getUserDetail();
         this.props.appState.getUserCollection();
     }
 
     render() {
+        if (!this.props.appState.user.isLogin) {
+            const { pathname } = this.props.history.location
+            this.props.appState.setPathBeforeLogin(pathname);
+            return <Redirect to="/login" />
+        }
         const { recentReplies, recentTopics, syncing: syncing1 } = this.props.appState.user.detail;
         const { list: collections, syncing: syncing2 } = this.props.appState.user.collections;
         const listArr = [{

@@ -5,6 +5,7 @@ import {
 import { Link, withRouter } from 'react-router-dom';
 import { observer, inject } from 'mobx-react';
 import PropTypes from 'prop-types';
+import Helmet from 'react-helmet';// 解决个页面title等seo标签
 
 @withRouter
 @inject(stores => (

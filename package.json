@@ -18,7 +18,7 @@
   "author": "hcl",
   "license": "ISC",
   "dependencies": {
-    "antd": "^3.10.0",
+    "antd": "~3.9.3",
     "axios": "^0.18.0",
     "body-parser": "^1.18.3",
     "ejs": "^2.6.1",

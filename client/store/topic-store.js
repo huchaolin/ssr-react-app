@@ -1,6 +1,6 @@
 import {
     observable,
-    // toJs,
+    toJS,
     // computed,
     action,
     extendObservable,
@@ -20,7 +20,6 @@ class Topic {
         extendObservable(this, data); // 把对象data所有属性变为Topic的observable属性
     }
 ;
-    @observable syncing = false;
 }
 
 
@@ -36,38 +35,50 @@ class TopicStore {
 
     @observable topicDetails;
 
+    @observable tab;
+
+    @observable page;
+
      constructor({
- syncing = false, topics = [], replys = [], topicDetails = {},
+ syncing = false, topics = [], replys = [], topicDetails = {}, tab = 'all', page = 1,
 } = {}) {
         this.syncing = syncing;
         this.topicDetails = topicDetails;
+        this.tab = tab;
+        this.page = page;
         this.replys = replys.map(reply => createReply(reply));
         this.topics = topics.map(topic => createTopic(topic));
     };
 
     @action fetchTopics(tab = 'all', page = 1) {
         this.syncing = true;
-        this.topics = [];
-        const params = { mdrender: false, page };
-        if (!!tab && tab !== 'all') {
-            params.tab = tab;
-        };
         return new Promise((resolve, reject) => {
-            get('/topics', params).then((res) => {
-                if (res.success) {
-                    // 防止多次变化导致的重复渲染
-                    let topicsArr = [];
-                    topicsArr = res.data.map(topic => createTopic(topic));
-                    this.topics = topicsArr;
-                    resolve();
-                } else {
-                    reject();
-                }
+            if (this.tab === tab && this.page === page && this.topics.length !== 0) {
+                resolve();
                 this.syncing = false;
-            }).catch((err) => {
+            } else {
+                this.tab = tab;
+                this.page = page;
+                const params = { mdrender: false, page };
+                if (!!tab && tab !== 'all') {
+                    params.tab = tab;
+                };
+                get('/topics', params).then((res) => {
+                    if (res.success) {
+                        // 防止多次变化导致的重复渲染
+                        let topicsArr = [];
+                        topicsArr = res.data.map(topic => createTopic(topic));
+                        this.topics = topicsArr;
+                        resolve();
+                    } else {
+                        reject();
+                    }
+                    this.syncing = false;
+                }).catch((err) => {
                     reject(err);
                     this.syncing = false;
-            })
+                })
+            }
         })
     }
 
@@ -154,10 +165,12 @@ class TopicStore {
 
     toJson() {
         return {
-          topics: this.topics,
+          topics: toJS(this.topics),
           syncing: this.syncing,
-          topicDetails: this.topicDetails,
-          replys: this.replys,
+          topicDetails: toJS(this.topicDetails),
+          replys: toJS(this.replys),
+          tab: this.tab,
+          page: this.page,
         }
       }
 }

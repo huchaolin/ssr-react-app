@@ -62,7 +62,6 @@ class CreateTopic extends Component {
 }
 
   handleChange(key, v) {
-      console.log(v);
     this.setState({
         [key]: v,
     })

@@ -1,5 +1,5 @@
 import {
-  observable, computed, action,
+  observable, computed, action, toJS,
 } from 'mobx';
 import { get, post } from '../util/wrapAxios';
 
@@ -82,7 +82,7 @@ class AppState {
   // 服务端完成渲染时以json格式拿到数据
   toJson() {
     return {
-      user: this.user,
+      user: toJS(this.user),
       pathBeforeLogin: this.pathBeforeLogin,
     }
   }

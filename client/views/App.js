@@ -29,7 +29,7 @@ class App extends Component {
                 <Route path="/login" component={Login} />
                 <Route path="/create-topic" component={createTopic} />
             </Content>
-            <Footer>Footer</Footer>
+            <Footer />
          </Layout>
     );
   }

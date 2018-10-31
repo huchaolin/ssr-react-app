@@ -55,7 +55,6 @@ class TopicDetails extends Component {
     const { isLogin } = this.props.appState.user;
     this.props.topicStore.fetchTopicDetail(params.id, isLogin)
     .then((detail) => {
-      console.log('detail', detail)
       this.setState({ isCollect: detail.is_collect, detail });
       })
       .catch((err) => {

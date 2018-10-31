@@ -55,7 +55,6 @@ class Login extends Component {
     login(token) {
         this.props.appState.login(token)
         .then((res) => {
-            console.log(res);
             message.success('登陆成功');
             this.props.topicStore.initTopicDetails();
             const { pathBeforeLogin } = this.props.appState;
