@@ -4,7 +4,7 @@ import {
  message, Button, Select, Input, Row, Col,
 } from 'antd';
 import SimpleMDE from 'react-simplemde-editor';
-import 'simplemde/dist/simplemde.min.css';
+import 'simplemde/dist/simplemde.min.css'; //eslint-disable-line
 import PropTypes from 'prop-types'; // 对于通过props传入的数据进行数据类型校验
 import Helmet from 'react-helmet';// 解决个页面title等seo标签
 import marked from 'marked';

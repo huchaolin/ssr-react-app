@@ -1,7 +1,6 @@
 import {
     observable,
     toJS,
-    // computed,
     action,
     extendObservable,
 } from 'mobx';
@@ -22,12 +21,17 @@ class Topic {
 ;
 }
 
-
 const createTopic = topic => new Topic({ ...topicSchema, ...topic });
 const createReply = reply => new Reply({ ...replySchema, ...reply });
 
 class TopicStore {
-    @observable topics;
+    @observable topics = {
+        all: [],
+        good: [],
+        share: [],
+        ask: [],
+        job: [],
+    };
 
     @observable replys;// 我的回复
 
@@ -39,21 +43,34 @@ class TopicStore {
 
     @observable page;
 
-     constructor({
- syncing = false, topics = [], replys = [], topicDetails = {}, tab = 'all', page = 1,
-} = {}) {
+    constructor({
+        syncing = false,
+        topics = {},
+        replys = [],
+        topicDetails = {},
+        tab = 'all',
+        page = 1,
+    } = {}) {
         this.syncing = syncing;
         this.topicDetails = topicDetails;
         this.tab = tab;
         this.page = page;
         this.replys = replys.map(reply => createReply(reply));
-        this.topics = topics.map(topic => createTopic(topic));
+        // 初始化每一个标签页所对应的数组
+        const topicsKeys = Object.keys(topics);
+        if (topicsKeys.length > 0) {
+            topicsKeys.forEach((key) => {
+                if (topics[key].length > 0) {
+                    this.topics[key] = topics[key].map(topic => createTopic(topic));
+                }
+            })
+        }
     };
 
     @action fetchTopics(tab = 'all', page = 1) {
         this.syncing = true;
         return new Promise((resolve, reject) => {
-            if (this.tab === tab && this.page === page && this.topics.length !== 0) {
+            if (this.tab === tab && this.page === page && this.topics[tab].length !== 0) {
                 resolve();
                 this.syncing = false;
             } else {
@@ -68,7 +85,7 @@ class TopicStore {
                         // 防止多次变化导致的重复渲染
                         let topicsArr = [];
                         topicsArr = res.data.map(topic => createTopic(topic));
-                        this.topics = topicsArr;
+                        this.topics[tab] = topicsArr;
                         resolve();
                     } else {
                         reject();

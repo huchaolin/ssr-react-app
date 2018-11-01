@@ -2,7 +2,7 @@ import React, { Component } from 'react'; //eslint-disable-line
 import { observer, inject } from 'mobx-react';
 import { Link } from 'react-router-dom';
 import {
- Tabs, Button, List, Avatar, Tag, Spin, Pagination,
+ Tabs, List, Avatar, Tag, Spin, Pagination,
 } from 'antd';
 import PropTypes from 'prop-types'; // 对于通过props传入的数据进行数据类型校验
 import Helmet from 'react-helmet';// 解决个页面title等seo标签
@@ -80,6 +80,7 @@ class TopicList extends Component {
   render() {
     const { topicStore } = this.props;
     const { topics, syncing } = topicStore;
+    console.log('topics', topics)
     const activeTab = this.getQueryTabName();
     return (
       <div style={{
@@ -108,11 +109,11 @@ class TopicList extends Component {
             {topicTabs.map(tabData => (
               <TabPane tab={tabData.text} key={tabData.type}>
                 {
-                  topics.length === 0 ? <div style={{ textAlign: 'center', padding: '1rem 0' }}>{syncing ? <Spin /> : null}</div>
+                  topics[tabData.type].length === 0 ? <div style={{ textAlign: 'center', padding: '1rem 0' }}>{syncing ? <Spin /> : null}</div>
                     : (
                     <List
                       itemLayout="horizontal"
-                      dataSource={activeTab === tabData.type ? topics : []}
+                      dataSource={topics[tabData.type]}
                       renderItem={topicsItem => (
                         <List.Item>
                           <List.Item.Meta

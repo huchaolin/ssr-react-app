@@ -1,5 +1,5 @@
 import {
-  observable, computed, action, toJS,
+  observable, action, toJS,
 } from 'mobx';
 import { get, post } from '../util/wrapAxios';
 

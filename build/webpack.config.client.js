@@ -1,5 +1,8 @@
+const webpack = require('webpack');
 const path = require('path');
 const HtmlWebPackPlugin = require("html-webpack-plugin");
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const webpackMerge = require("webpack-merge");
 const webpackBaseConfig = require("./webpack.base");
 const isDev = process.env.NODE_ENV == 'development';
@@ -71,6 +74,39 @@ if(isDev) {
             '/api': 'http://localhost:2222'
         }
     };
-
-};
+} else {
+    config.entry = {
+        app: path.join(__dirname, '../client/app.js'),
+    };
+    config.optimization = {
+        minimizer: [
+            new UglifyJsPlugin()
+        ],
+        splitChunks: {
+			cacheGroups: {
+                libs: {
+                    test: /node_modules/,
+                    chunks: "initial", // 只打包初始时依赖的第三方
+                    name: "chunk-libs",
+                    priority: 10,
+                },
+                antd: {
+                    test: /antd/,
+                    chunks: "initial", // 只打包初始时依赖的第三方
+                    name: "chunk-antd", // 单独将 elementUI 拆包
+                    priority: 20, // 权重要大于 libs 和 app 不然会被打包进 libs 或者 app
+                }, 
+			}
+		}
+    }
+    config.output.filename = '[name].[chunkhash].js';
+    config.plugins.push(
+        new BundleAnalyzerPlugin(),
+        new webpack.DefinePlugin({
+                    'process.env' : {
+                        NODE_ENV: JSON.stringify('production'),
+                    }
+                }),
+    )
+}
 module.exports = config;
