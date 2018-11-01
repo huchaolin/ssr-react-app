@@ -80,7 +80,6 @@ class TopicList extends Component {
   render() {
     const { topicStore } = this.props;
     const { topics, syncing } = topicStore;
-    console.log('topics', topics)
     const activeTab = this.getQueryTabName();
     return (
       <div style={{
