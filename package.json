@@ -13,6 +13,7 @@
     "build": "npm run clear && npm run build-client && npm run build-server",
     "lint": "eslint --fix --ext .js --ext .jsx client/",
     "precommit": "npm run lint",
+    "upload-cdn": "node build/upload.js",
     "start": "cross-env NODE_ENV=production node server/server.js"
   },
   "author": "hcl",
@@ -70,6 +71,7 @@
     "memory-fs": "^0.4.1",
     "name-all-modules-plugin": "^1.0.1",
     "npm": "^6.4.1",
+    "qiniu": "^7.2.1",
     "react-hot-loader": "^4.3.5",
     "rimraf": "^2.6.2",
     "style-loader": "^0.23.1",

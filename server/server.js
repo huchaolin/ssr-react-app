@@ -47,6 +47,13 @@ if (!isDev) {
     const devStatic = require('./util/dev-static');
     devStatic(app);
 };
-app.listen(2222, function () {
+// 指定正式环境下的host与端口号
+const host = process.env.HOST || '0.0.0.0';
+const port = process.env.PORT || 2222;
+
+// app.listen(2222, function () {
+//     console.log('server is listening on 2222')
+// });
+app.listen(port, host, function () {
     console.log('server is listening on 2222')
 });

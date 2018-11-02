@@ -5,6 +5,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const webpackMerge = require("webpack-merge");
 const webpackBaseConfig = require("./webpack.base");
+const cdnConfig = require("../app.config").cdn;
 const isDev = process.env.NODE_ENV == 'development';
 const config = webpackMerge(webpackBaseConfig, {
     entry: {
@@ -100,6 +101,7 @@ if(isDev) {
 		}
     }
     config.output.filename = '[name].[chunkhash].js';
+    config.output.publicPath = cdnConfig.host;
     config.plugins.push(
         new BundleAnalyzerPlugin(),
         new webpack.DefinePlugin({
