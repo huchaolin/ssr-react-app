@@ -13,7 +13,8 @@
     "build": "npm run clear && npm run build-client && npm run build-server",
     "lint": "eslint --fix --ext .js --ext .jsx client/",
     "precommit": "npm run lint",
-    "upload-cdn": "node build/upload.js",
+    "upload": "node build/upload.js",
+    "deploy": "npm run build && npm run upload",
     "start": "cross-env NODE_ENV=production node server/server.js"
   },
   "author": "hcl",

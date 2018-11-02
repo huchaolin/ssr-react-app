@@ -103,7 +103,7 @@ if(isDev) {
     config.output.filename = '[name].[chunkhash].js';
     config.output.publicPath = cdnConfig.host;
     config.plugins.push(
-        new BundleAnalyzerPlugin(),
+        // new BundleAnalyzerPlugin(),
         new webpack.DefinePlugin({
                     'process.env' : {
                         NODE_ENV: JSON.stringify('production'),
