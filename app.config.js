@@ -1,8 +1,8 @@
 module.exports = {
   cdn: {
-    ak: 'n5lLLWJSHde4td4qn4wwQGP8vFp7M0IIuKA8DP21',
-    sk: 'tnrytIs3UH2XFLyTYfIVt7pAYc7kChXmpgTPmdKf',
+    ak: 'n5lLLW****************IuKA8DP21',  //此处填入自己的七牛云相关配置
+    sk: 'tnrytIs****************hXmpgTPmdKf',
     bucket: 'hnode',
-    host: 'http://7cdn.hcl.fun/'
+    host: 'http:******hcl.fun/'
   }
 }
