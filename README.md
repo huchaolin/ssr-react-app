@@ -9,5 +9,4 @@ npm run start
 
 若需build， 需要先更改app.config.js中的七牛云cdn配置， 另需自行配置nginx反向代理
 
-线上试玩版 [hnode.hcl.fun](http://hnode.hcl.fun)  
-<a href="http://hnode.hcl.fun" target="_blank">hnode.hcl.fun</a>
+线上试玩版 [hnode.hcl.fun](http://hnode.hcl.fun) 
